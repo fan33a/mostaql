@@ -16,7 +16,7 @@
     <li class="nav-item">
         <a class="nav-link" href="index.html">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span></a>
+            <span>{{ __('admin.dashboard') }}</span></a>
     </li>
 
     <!-- Divider -->
@@ -27,12 +27,12 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCategorie"
             aria-expanded="true" aria-controls="collapseCategorie">
             <i class="fas fa-fw fa-tags"></i>
-            <span>Categorise</span>
+            <span>{{ __('admin.categories') }}</span>
         </a>
         <div id="collapseCategorie" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="buttons.html">All Categorise</a>
-                <a class="collapse-item" href="cards.html">Add New</a>
+                <a class="collapse-item" href="buttons.html">{{ __('admin.all_cat') }}</a>
+                <a class="collapse-item" href="cards.html">{{ __('admin.add_new') }}</a>
             </div>
         </div>
     </li>
@@ -45,12 +45,12 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSkills"
             aria-expanded="true" aria-controls="collapseSkills">
             <i class="fas fa-fw fa-star"></i>
-            <span>Skills</span>
+            <span>{{ __('admin.skills') }}</span>
         </a>
         <div id="collapseSkills" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="buttons.html">All Skills</a>
-                <a class="collapse-item" href="cards.html">Add New</a>
+                <a class="collapse-item" href="buttons.html">{{ __('admin.all_skills') }}</a>
+                <a class="collapse-item" href="cards.html">{{ __('admin.add_new') }}</a>
             </div>
         </div>
     </li>
@@ -63,12 +63,12 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseProject"
             aria-expanded="true" aria-controls="collapseProject">
             <i class="fas fa-fw fa-briefcase"></i>
-            <span>Projects</span>
+            <span>{{ __('admin.project') }}</span>
         </a>
         <div id="collapseProject" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="buttons.html">All Projects</a>
-                <a class="collapse-item" href="cards.html">Add New</a>
+                <a class="collapse-item" href="buttons.html">{{ __('admin.all_project') }}</a>
+                <a class="collapse-item" href="cards.html">{{ __('admin.add_new') }}</a>
             </div>
         </div>
     </li>
@@ -79,7 +79,7 @@
     <li class="nav-item">
         <a class="nav-link" href="index.html">
             <i class="fas fa-fw fa-file-signature"></i>
-            <span>Proposales</span></a>
+            <span>{{ __('admin.proposale') }}</span></a>
     </li>
 
     <!-- Divider -->
@@ -88,7 +88,7 @@
     <li class="nav-item">
         <a class="nav-link" href="index.html">
             <i class="fas fa-fw fa-users"></i>
-            <span>Freelancers</span></a>
+            <span>{{ __('admin.freelancer') }}</span></a>
     </li>
     
     <!-- Divider -->

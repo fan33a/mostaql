@@ -22,7 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'phonec:\Users\awadallah\Downloads\Compressed\startbootstrap-sb-admin-2-gh-pages\404.html',
+        'phone',
     ];
 
     /**
