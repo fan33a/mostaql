@@ -20,6 +20,47 @@
     <!-- Custom styles for this template-->
     <link href="{{ asset('adminassets/css/sb-admin-2.min.css') }}" rel="stylesheet">
     @yield('styles')
+
+    @if (App::getLocale() == 'ar')
+        <style>
+            body {
+                direction: rtl;
+                text-align: start;
+            }
+
+            .sidebar {
+                padding: 0;
+            }
+            
+            .sidebar .nav-item .nav-link {
+                text-align: start;
+            }
+
+            .sidebar .nav-item .nav-link[data-toggle=collapse]::after{
+                float: inline-end;
+            }
+            
+            .ml-auto, .mx-auto {
+                margin-left: unset !important;
+            }
+
+            .mr-auto, .mx-auto {
+                margin-right: unset !important;
+                margin-left: auto !important;
+            }
+
+            .input-group>.input-group-append>.btn, .input-group>.input-group-append>.input-group-text, .input-group>.input-group-prepend:first-child>.btn:not(:first-child), .input-group>.input-group-prepend:first-child>.input-group-text:not(:first-child), .input-group>.input-group-prepend:not(:first-child)>.btn, .input-group>.input-group-prepend:not(:first-child)>.input-group-text {
+                border-top-right-radius: unset;
+                border-bottom-right-radius: unset;
+                border-top-left-radius: 0.35rem;
+                border-bottom-left-radius: 0.35rem;
+            }
+
+            .mr-2, .mx-2 {
+                margin-left: 0.5rem !important;
+            }
+        </style>
+    @endif
 </head>
 
 <body id="page-top">
@@ -40,15 +81,6 @@
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-                    <ul>
-                        @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                            <li>
-                                <a rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
-                                    {{ $properties['native'] }}
-                                </a>
-                            </li>
-                        @endforeach
-                    </ul>
 
                     <!-- Sidebar Toggle (Topbar) -->
                     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -71,6 +103,14 @@
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
+
+                        @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                        <li class="nav-item">
+                            <a class="nav-link" rel="alternate" hreflang="{{ $localeCode }}" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                {{ strtoupper($localeCode)  }}
+                            </a>
+                        </li>
+                        @endforeach
 
                         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
                         <li class="nav-item dropdown no-arrow d-sm-none">
