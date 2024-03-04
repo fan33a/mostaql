@@ -3,6 +3,35 @@
 
 @section('title', 'Dashboard')
 
+@section('styles')
+    <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+@endsection
+@section('scripts')
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+      
+      var table = $('.data-table').DataTable({
+          processing: true,
+          serverSide: true,
+          ajax: "{{ route('admin.projects.index') }}",
+          columns: [
+              {data: 'id', name: 'id'},
+              {data: 'name', name: 'name'},
+              {data: 'user', name: 'user'},
+              {data: 'category', name: 'category'},
+              {data: 'action', name: 'action', orderable: false, searchable: false},
+          ]
+      });
+      
+    });
+  </script>
+    
+@endsection
+
 @section('content')
 
 
@@ -16,8 +45,20 @@
         @endif
     <!-- Page Heading -->
     <h1 class="h3 mb-4 text-gray-800">All projects</h1>
-    
-    <table class="table table-bordered table-striped text-center">
+    <table class="table table-bordered data-table">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>Name</th>
+                <th>User</th>
+                <th>Category</th>
+                <th width="100px">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    {{-- <table class="table table-bordered table-striped text-center">
         <thead>
             <tr>
                 <th>ID</th>
@@ -57,14 +98,5 @@
                 </tr>
             @endforelse
         </tbody>
-    </table>
-@endsection
-
-@section('script')
-    <script>
-        setTimeout(function() {
-            $('.alert').fadeOut();
-        }, 3000);
-    </script>
-    
+    </table> --}}
 @endsection

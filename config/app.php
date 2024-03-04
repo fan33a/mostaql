@@ -171,6 +171,7 @@ return [
 
         // Yajar DataTables Library
         Yajra\DataTables\DataTablesServiceProvider::class,
+
     ])->toArray(),
 
     /*

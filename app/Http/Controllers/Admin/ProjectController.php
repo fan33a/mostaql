@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
 
 class ProjectController extends Controller
@@ -15,11 +16,36 @@ class ProjectController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $projects = project::with('category', 'user')->latest('id')->paginate(10);
+        if ($request->ajax()) {
+            $data = Project::select('*');
+            return DataTables::of($data)
+                    ->addIndexColumn()
+                    ->addColumn('name', function($row){    
+                            return $row->trans_name;
+                    })
+                    ->addColumn('user', function($row){    
+                            return $row->user->name;
+                    })
+                    ->addColumn('category', function($row){    
+                            return $row->category->trans_name;
+                    })
+                    ->addColumn('action', function($row){
+     
+                           $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
+    
+                            return $btn;
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
+        }
 
-        return view('admin.projects.index', compact('projects'));
+        // $projects = project::with('category', 'user')->latest('id')->paginate(10);
+
+        // return view('admin.projects.index', compact('projects'));
+        return view('admin.projects.index');
+
     }
 
     /**
