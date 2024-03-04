@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Project;
+use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class ProjectController extends Controller
@@ -15,7 +17,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = project::latest('id')->paginate(10);
+        $projects = project::with('category', 'user')->latest('id')->paginate(10);
 
         return view('admin.projects.index', compact('projects'));
     }
@@ -25,7 +27,8 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('admin.projects.create');
+        $categories = Category::all();
+        return view('admin.projects.create', compact('categories'));
     }
 
     /**
@@ -35,20 +38,26 @@ class ProjectController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name_en' => 'required',
-            'name_ar' => 'required'
+            'name_ar' => 'required',
+            'description_en' => 'required',
+            'description_ar' => 'required',
+            'budget' => 'required',
+            'time' => 'required',
+            'category_id' => 'required',
         ]);
+        
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator)->withInput();
+       }
 
         // Check if the name repeted or not
-        $exists = project::where('name', 'like', '%' . $request->name_en . '%')
+        $count = project::where('name', 'like', '%' . $request->name_en . '%')
         ->orWhere('name', 'like', '%' . $request->name_ar . '%')
-        ->exists();
+        ->count();
         
-        if($exists){
-            $validator->after(function ($validator) {
-                $validator->errors()->add('name_en', 'The name is already exists');
-                $validator->errors()->add('name_ar', 'The name is already exists');
-            });
-            return redirect()->back()->withErrors($validator)->withInput();
+        $slug = Str::slug($request->name);
+        if($count >= 1){
+            $slug = $slug . '-' . $count;
         }
 
         // return english name and arabic name as JSON format
@@ -56,11 +65,22 @@ class ProjectController extends Controller
             'en' => $request->name_en,
             'ar' => $request->name_ar
         ], JSON_UNESCAPED_UNICODE);
+
+        $description = json_encode([
+            'en' => $request->description_en,
+            'ar' => $request->description_ar
+        ], JSON_UNESCAPED_UNICODE);
         
 
         project::create([
             'name' => $name,
-            'slug' => Str::slug($request->name),
+            'slug' => $slug,
+            'status' => 1,
+            'user_id' => Auth::id(),
+            'description' => $description,
+            'budget' => $request->budget,
+            'time' => $request->time,
+            'category_id' => $request->category_id,
         ]);
 
         return redirect()->route('admin.projects.index')->with('msg', 'project Created Successfully')->with('type', 'success');
@@ -79,7 +99,8 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('admin.projects.edit', compact('project'));
+        $categories = Category::all();
+        return view('admin.projects.edit', compact('project','categories'));
     }
 
     /**

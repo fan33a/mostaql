@@ -22,6 +22,8 @@
             <tr>
                 <th>ID</th>
                 <th>Name</th>
+                <th>Category</th>
+                <th>Owner</th>
                 <th>Created at</th>
                 <th>Actions</th>
             </tr>
@@ -31,6 +33,8 @@
                 <tr>
                     <td>{{ $project->id }}</td>
                     <td>{{ $project->trans_name }}</td>
+                    <td>{{ $project->category->trans_name }}</td>
+                    <td>{{ $project->User->name }}</td>
                     <td>{{ $project->created_at->format('M d,Y') }}</td>
                     <td class="d-flex justify-content-around">
                         <a href="{{ route('admin.projects.edit', $project->id) }}" class="btn btn-success btn-sm">
