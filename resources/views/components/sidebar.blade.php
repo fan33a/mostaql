@@ -49,8 +49,8 @@
         </a>
         <div id="collapseSkills" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="buttons.html">{{ __('admin.all_skills') }}</a>
-                <a class="collapse-item" href="cards.html">{{ __('admin.add_new') }}</a>
+                <a class="collapse-item" href="{{ route('admin.skills.index') }}">{{ __('admin.all_skills') }}</a>
+                <a class="collapse-item" href="{{ route('admin.skills.create') }}">{{ __('admin.add_new') }}</a>
             </div>
         </div>
     </li>
@@ -67,8 +67,8 @@
         </a>
         <div id="collapseProject" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="buttons.html">{{ __('admin.all_project') }}</a>
-                <a class="collapse-item" href="cards.html">{{ __('admin.add_new') }}</a>
+                <a class="collapse-item" href="{{ route('admin.projects.index') }}">{{ __('admin.all_project') }}</a>
+                <a class="collapse-item" href="{{ route('admin.projects.create') }}">{{ __('admin.add_new') }}</a>
             </div>
         </div>
     </li>
@@ -86,7 +86,7 @@
     <hr class="sidebar-divider my-0">
 
     <li class="nav-item">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="{{ route('admin.freelancers') }}">
             <i class="fas fa-fw fa-users"></i>
             <span>{{ __('admin.freelancer') }}</span></a>
     </li>
