@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Trans\Trans;
+use App\Traits\Trans;
 use Illuminate\Support\Facades\App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;

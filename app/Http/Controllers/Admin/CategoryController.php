@@ -6,6 +6,7 @@ use App\Models\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
 {
@@ -32,10 +33,28 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name_en' => 'required|unique:categories,name',
+        // $request->validate([
+        //     'name_en' => 'required',
+        //     'name_ar' => 'required'
+        // ]);
+
+        $validator = Validator::make($request->all(), [
+            'name_en' => 'required',
             'name_ar' => 'required'
         ]);
+
+        // Check if the name repeted or not
+        $exists = Category::where('name', 'like', '%' . $request->name_en . '%')
+        ->orWhere('name', 'like', '%' . $request->name_ar . '%')
+        ->exists();
+        
+        if($exists){
+            $validator->after(function ($validator) {
+                $validator->errors()->add('name_en', 'The name is already exists');
+                $validator->errors()->add('name_ar', 'The name is already exists');
+            });
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
 
         // return english name and arabic name as JSON format
         $name = json_encode([
@@ -65,7 +84,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view('Admin.categories.edit', compact('category'));
     }
 
     /**
@@ -73,7 +92,24 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $request->validate([
+            'name_en' => 'required|unique:categories,name',
+            'name_ar' => 'required'
+        ]);
+
+        // return english name and arabic name as JSON format
+        $name = json_encode([
+            'en' => $request->name_en,
+            'ar' => $request->name_ar
+        ], JSON_UNESCAPED_UNICODE);
+        
+
+        $category->update([
+            'name' => $name,
+            // 'slug' => Str::slug($request->name),
+        ]);
+
+        return redirect()->route('admin.categories.index')->with('msg', 'Cateory Updated Successfully')->with('type', 'info');
     }
 
     /**

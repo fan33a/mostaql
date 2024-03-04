@@ -33,7 +33,7 @@
                     <td>{{ $category->trans_name }}</td>
                     <td>{{ $category->created_at->format('M d,Y') }}</td>
                     <td class="d-flex justify-content-around">
-                        <a href="{{ route('admin.categories.destroy', $category->id) }}" class="btn btn-success btn-sm">
+                        <a href="{{ route('admin.categories.edit', $category->id) }}" class="btn btn-success btn-sm">
                             <i class="fas fa-edit"></i>
                         </a>
                         <form method="POST" action="{{ route('admin.categories.destroy', $category->id) }}">

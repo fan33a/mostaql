@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Trans;
+namespace App\Traits;
+
+use Illuminate\Support\Facades\App;
 
 trait Trans {
     // Recommended use function name like this
@@ -16,7 +18,7 @@ trait Trans {
 
     public function getEnNameAttribute() {
         $name = json_decode($this->name, true);
-        if(!is_null($null)){
+        if(!is_null($name)){
             return $name['en'];
         }
         return $this->name;
@@ -24,7 +26,7 @@ trait Trans {
 
     public function getArNameAttribute() {
         $name = json_decode($this->name, true);
-        if(!is_null($null)){
+        if(!is_null($name)){
             return $name['ar'];
         }
         return $this->name;

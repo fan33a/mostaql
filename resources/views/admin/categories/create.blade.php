@@ -28,7 +28,7 @@
             </div>
         </div>
 
-        <button class="btn btn-success me-1">Save<i class="fas fa-save m-2"></i></button>
+        <button class="btn btn-success me-1">Add<i class="fas fa-save m-2"></i></button>
     </form>
     
 @endsection
