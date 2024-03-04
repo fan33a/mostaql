@@ -30,7 +30,7 @@
             @forelse ($categories as $category)
                 <tr>
                     <td>{{ $category->id }}</td>
-                    <td>{{ $category->name }}</td>
+                    <td>{{ $category->trans_name }}</td>
                     <td>{{ $category->created_at->format('M d,Y') }}</td>
                     <td class="d-flex justify-content-around">
                         <a href="{{ route('admin.categories.destroy', $category->id) }}" class="btn btn-success btn-sm">
@@ -56,10 +56,11 @@
     </table>
 @endsection
 
-@section('scripts')
+@section('script')
     <script>
-        setTimeout(() => {
+        setTimeout(function() {
             $('.alert').fadeOut();
-        }, 3000)
+        }, 3000);
     </script>
+    
 @endsection

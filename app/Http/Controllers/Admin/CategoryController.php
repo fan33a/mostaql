@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
 {
@@ -23,7 +24,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('Admin.categories.create');
     }
 
     /**
@@ -31,7 +32,24 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name_en' => 'required|unique:categories,name',
+            'name_ar' => 'required'
+        ]);
+
+        // return english name and arabic name as JSON format
+        $name = json_encode([
+            'en' => $request->name_en,
+            'ar' => $request->name_ar
+        ], JSON_UNESCAPED_UNICODE);
+        
+
+        Category::create([
+            'name' => $name,
+            'slug' => Str::slug($request->name),
+        ]);
+
+        return redirect()->route('admin.categories.index')->with('msg', 'Cateory Created Successfully')->with('type', 'success');
     }
 
     /**
