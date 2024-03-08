@@ -33,8 +33,19 @@ class ProjectController extends Controller
                     })
                     ->addColumn('action', function($row){
      
-                           $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
+                        //    $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
     
+                            $btn = `<a href="route('admin.projects.edit', $row->id)" class="btn btn-success btn-sm">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <form method="POST" action="' . route('admin.projects.destroy', $row->id) . '">
+                            @csrf
+                            @method('delete')
+                            <button onclick="return confirm('Are you sure?')" class="btn btn-danger btn-sm">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </form>`;
+
                             return $btn;
                     })
                     ->rawColumns(['action'])
