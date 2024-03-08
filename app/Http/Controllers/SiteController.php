@@ -12,7 +12,9 @@ class SiteController extends Controller
 
         // check if the requst type ajax?
         if($request->ajax()){
+            $latest_projects = Project::latest()->paginate(2);
 
+            return view('site.parts.latest_projects', compact('latest_projects'))->render();
         }
 
         // Return Top 3 Categories Based on projects count in this category
