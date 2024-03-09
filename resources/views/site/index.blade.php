@@ -62,7 +62,7 @@
                         <div class="col-xl-3 col-lg-3 col-md-4 col-sm-6">
                             <div class="single-services text-center mb-30">
                                 <div class="services-cap">
-                                    <h5><a href="job_listing.html">{{ $cat->trans_name }}</a></h5>
+                                    <h5><a href="{{ route('site.category', $cat->slug) }}">{{ $cat->trans_name }}</a></h5>
                                     <span>({{ $cat->projects_count }})</span>
                                 </div>
                             </div>

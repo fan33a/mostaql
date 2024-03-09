@@ -31,7 +31,10 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function()
 
 
     // Site Routes
-    Route::get('/', [SiteController::class, 'index']);
+    Route::get('/', [SiteController::class, 'index'])->name('site.index');
+    // Route::get('/category/{slug}', [SiteController::class, 'category'])->name('site.category');
+    Route::get('/category/{category:slug}', [SiteController::class, 'category'])->name('site.category');
+    Route::get('/project/{project:slug}', [SiteController::class, 'project'])->name('site.project');
 
 });
 

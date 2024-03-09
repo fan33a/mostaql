@@ -13,7 +13,7 @@ class SiteController extends Controller
         // check if the requst type ajax?
         if($request->ajax()){
             $latest_projects = Project::latest()->paginate(2);
-
+            
             return view('site.parts.latest_projects', compact('latest_projects'))->render();
         }
 
@@ -23,5 +23,27 @@ class SiteController extends Controller
         $latest_projects = Project::latest()->paginate(2);
 
         return view('site.index', compact('top_cats','latest_projects'));
+    }
+
+
+    // function category($slug) {
+    //     $category = Category::where('slug', $slug)->findOrFail(); 
+    //     dd($category)
+    // }
+
+    // the same code
+    function category(Category $category) {
+        // dd($category);
+        
+        $category->load('projects'); // ->load for the relation between category and project
+
+        // when use () with ->projects() example, he alowd to run the next method for relation
+        $projects = $category->projects()->paginate(2);
+        return view('site.jobs', compact('category', 'projects'));
+    }
+
+    function project(Project $project) {
+        // dd($project);
+        return view('site.project', compact('project'));
     }
 }
