@@ -10,6 +10,8 @@ class Proposale extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $guarded = [];
+
     public function freelasncer() {
         return $this->belongsTo(User::class, 'employee_id')->withDefault();
     }

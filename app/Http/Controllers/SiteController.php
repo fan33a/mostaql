@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use App\Models\Category;
+use App\Models\Proposale;
 use Illuminate\Http\Request;
 
 class SiteController extends Controller
@@ -38,12 +39,40 @@ class SiteController extends Controller
         $category->load('projects'); // ->load for the relation between category and project
 
         // when use () with ->projects() example, he alowd to run the next method for relation
-        $projects = $category->projects()->paginate(2);
+        $projects = $category->projects()->latest()->paginate(2);
         return view('site.jobs', compact('category', 'projects'));
     }
 
     function project(Project $project) {
         // dd($project);
         return view('site.project', compact('project'));
+    }
+
+    function apply_now(Project $project) {
+        return view('site.apply_now', compact('project'));
+    }
+
+    function apply_now_data(Request $request, $slug) {
+        $request->validate([
+            'cost' => 'required',
+            'time' => 'required',
+            'content' => 'required',
+        ]);
+
+        Proposale::create([
+            'employee_id' => $request->employee_id,
+            'project_id' => $request->project_id,
+            'content' => $request->content,
+            'time' => $request->time,
+            'cost' => str_replace('$', '', $request->cost),
+        ]);
+
+        return redirect()->route('site.project', $slug);
+    }
+
+    function delete_proposal($id) {
+        Proposale::destroy($id);
+
+        return redirect()->back(); 
     }
 }

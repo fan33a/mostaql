@@ -65,7 +65,7 @@ class CategoryController extends Controller
 
         Category::create([
             'name' => $name,
-            'slug' => Str::slug($request->name),
+            'slug' => Str::slug($request->name_en),
         ]);
 
         return redirect()->route('admin.categories.index')->with('msg', 'Cateory Created Successfully')->with('type', 'success');

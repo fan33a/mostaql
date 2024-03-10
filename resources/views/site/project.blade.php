@@ -54,6 +54,29 @@
                         </div>
                     </div>
 
+                    <hr>
+
+                    <h3 class="mb-4">Proposals</h3>
+
+                    @if ($project->proposals->count() > 0)
+                        @foreach ($project->proposals as $proposale)
+                        <strong>{{ $proposale->freelasncer->name }}</strong>
+                        <p>{{ $proposale->content }}</p>
+
+                        @if (Auth::id() == $proposale->employee_id)
+                            <p>{{ $proposale->cost }}</p>
+                            <a onclick="confirm('Are Your Sure?')" href="{{ route('site.delete_proposal', $proposale->id) }}" class="text-danger">delete</a>
+                        @endif
+
+                        @if (! $loop->last)
+                            <br><hr>
+                        @endif
+                        @endforeach
+
+                    @else
+                        <p>There is no proposals yet, be the first one</p>
+                    @endif
+
                 </div>
                 <!-- Right Content -->
                 <div class="col-xl-4 col-lg-4">
@@ -70,7 +93,10 @@
                             <li>Salary :  <span>{{ $project->budget }}</span></li>
                         </ul>
                         <div class="apply-btn2">
-                        <a href="#" class="btn">Apply Now</a>
+                            {{-- check if the user proposale in this project or not --}}
+                            @if (! Auth::user()->proposals()->where('project_id', $project->id)->exists())
+                                <a href="{{ route('site.apply_now', $project->slug) }}" class="btn">Apply Now</a>
+                            @endif
                         </div>
                     </div>
                     <div class="post-details4  mb-50">

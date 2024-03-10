@@ -92,7 +92,8 @@ class ProjectController extends Controller
         ->orWhere('name', 'like', '%' . $request->name_ar . '%')
         ->count();
         
-        $slug = Str::slug($request->name);
+        $slug = Str::slug($request->name_en);
+
         if($count >= 1){
             $slug = $slug . '-' . $count;
         }
@@ -117,6 +118,7 @@ class ProjectController extends Controller
             'description' => $description,
             'budget' => $request->budget,
             'time' => $request->time,
+            'job_type' => $request->job_type,
             'category_id' => $request->category_id,
         ]);
 

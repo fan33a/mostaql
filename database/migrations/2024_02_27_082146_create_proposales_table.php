@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('project_id');
             $table->text('content');
             $table->string('time');
-            $table->double('cost');
+            $table->string('cost', 30);
             $table->timestamps();
             $table->softDeletes();
         });

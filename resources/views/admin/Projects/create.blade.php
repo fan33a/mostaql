@@ -51,21 +51,28 @@
                 @enderror
             </div>
 
-            <div class="col-4 mb-3">
+            <div class="col-3 mb-3">
                 <label>Budget</label>
                 <input class="form-control {{ $errors->has('budget') ? 'is-invalid' : '' }}" type="text" name="budget" placeholder="project name" value="{{ old('budget') }}">
                 @error('budget')
                     <small class="invalid-feedback">{{ $message }}</small>
                 @enderror
             </div>
-            <div class="col-4 mb-3">
+            <div class="col-3 mb-3">
                 <label>Time</label>
                 <input class="form-control {{ $errors->has('time') ? 'is-invalid' : '' }}" type="text" name="time" placeholder="project name" value="{{ old('time') }}">
                 @error('time')
                     <small class="invalid-feedback">{{ $message }}</small>
                 @enderror
             </div>
-            <div class="col-4 mb-3">
+            <div class="col-3 mb-3">
+                <label>Job Type</label>
+                <input class="form-control {{ $errors->has('job_type') ? 'is-invalid' : '' }}" type="text" name="job_type" placeholder="Full Time" value="{{ old('job_type') }}">
+                @error('job_type')
+                    <small class="invalid-feedback">{{ $message }}</small>
+                @enderror
+            </div>
+            <div class="col-3 mb-3">
                 <label>Category</label>
                 <select name="category_id" class="form-control {{ $errors->has('category_id') ? 'is-invalid' : '' }}">
                     <option disabled selected value="" hidden> -- Select Category -- </option>

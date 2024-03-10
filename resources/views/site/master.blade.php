@@ -72,8 +72,19 @@
                                 </div>          
                                 <!-- Header-btn -->
                                 <div class="header-btn d-none f-right d-lg-block">
-                                    <a href="#" class="btn head-btn1">Register</a>
-                                    <a href="#" class="btn head-btn2">Login</a>
+                                    @Auth
+                                        <a href="{{ route('logout') }}" class="btn head-btn1">Logout</a>
+                                    @endauth
+                                    @guest
+                                        <a href="{{ route('register') }}" class="btn head-btn1">Register</a>
+                                        <a href="{{ route('login') }}" class="btn head-btn2">Login</a> 
+                                    @endguest
+                                    {{-- @if (Auth::check())
+                                        <a href="{{ route('logout') }}" class="btn head-btn1">Logout</a>
+                                    @else
+                                        <a href="{{ route('register') }}" class="btn head-btn1">Register</a>
+                                        <a href="{{ route('login') }}" class="btn head-btn2">Login</a> 
+                                    @endif --}}
                                 </div>
                             </div>
                         </div>
