@@ -6,6 +6,7 @@ use App\Models\Project;
 use App\Models\Category;
 use App\Models\Proposale;
 use Illuminate\Http\Request;
+use App\Notifications\NewProposal;
 
 class SiteController extends Controller
 {
@@ -49,10 +50,15 @@ class SiteController extends Controller
     }
 
     function apply_now(Project $project) {
+        // Send Notification To Project Owner
+        $user = $project->user; // Hit: ->user the project relation name 
+        if($user->channel_type){
+            $user->notify(new NewProposal);
+        }
         return view('site.apply_now', compact('project'));
     }
 
-    function apply_now_data(Request $request, $slug) {
+    function apply_now_data(Request $request, Project $project) {
         $request->validate([
             'cost' => 'required',
             'time' => 'required',
@@ -67,7 +73,7 @@ class SiteController extends Controller
             'cost' => str_replace('$', '', $request->cost),
         ]);
 
-        return redirect()->route('site.project', $slug);
+        return redirect()->route('site.project', $project->slug);
     }
 
     function delete_proposal($id) {
