@@ -72,19 +72,24 @@
                                 </div>          
                                 <!-- Header-btn -->
                                 <div class="header-btn d-none f-right d-lg-block">
-                                    @Auth
-                                        <a href="{{ route('logout') }}" class="btn head-btn1">Logout</a>
-                                    @endauth
+                                    {{-- @Auth
+                                        <a href="{{ Auth::logout() }}" class="btn head-btn1">Logout</a>
+                                    @endAuth
                                     @guest
                                         <a href="{{ route('register') }}" class="btn head-btn1">Register</a>
                                         <a href="{{ route('login') }}" class="btn head-btn2">Login</a> 
-                                    @endguest
-                                    {{-- @if (Auth::check())
-                                        <a href="{{ route('logout') }}" class="btn head-btn1">Logout</a>
+                                    @endguest --}}
+                                    @if (Auth::check())
+                                    <a onclick="event.preventDefault(); document.getElementById('logout-form').submit()" class="btn head-btn1" href="#" data-toggle="modal" data-target="#logoutModal">
+                                        Logout
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                                        @csrf
+                                    </form>
                                     @else
                                         <a href="{{ route('register') }}" class="btn head-btn1">Register</a>
                                         <a href="{{ route('login') }}" class="btn head-btn2">Login</a> 
-                                    @endif --}}
+                                    @endif
                                 </div>
                             </div>
                         </div>

@@ -11,12 +11,15 @@ class NewProposal extends Notification
 {
     use Queueable;
 
+    protected $msg;
+    protected $url;
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public function __construct($msg, $url)
     {
-        //
+        $this->msg = $msg;
+        $this->url = $url;
     }
 
     /**
@@ -43,6 +46,13 @@ class NewProposal extends Notification
                     ->line('Thank you for using our application!');
     }
 
+    // Database notify
+    public function toDatabase($notifiable) {
+        return [
+            'msg' => $this->msg,
+            'url' => $this->url
+        ];
+    }
     /**
      * Get the array representation of the notification.
      *

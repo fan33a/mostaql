@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Project;
 use App\Models\Category;
 use App\Models\Proposale;
 use Illuminate\Http\Request;
 use App\Notifications\NewProposal;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Notifications\DatabaseNotification;
 
 class SiteController extends Controller
 {
@@ -53,7 +56,9 @@ class SiteController extends Controller
         // Send Notification To Project Owner
         $user = $project->user; // Hit: ->user the project relation name 
         if($user->channel_type){
-            $user->notify(new NewProposal);
+            $msg = "There is new Proposal Submmitted to: $project->trans_name!";
+            $url = route('site.project', $project->slug);
+            $user->notify(new NewProposal($msg, $url));
         }
         return view('site.apply_now', compact('project'));
     }
@@ -80,5 +85,21 @@ class SiteController extends Controller
         Proposale::destroy($id);
 
         return redirect()->back(); 
+    }
+
+    function user_profile() {
+        return view('site.user_profile');
+    }
+
+    function read_notify($id) {
+        // dd(Auth::user()->notifications->find($id));
+        // dd(DatabaseNotification::find($id));
+        // DatabaseNotification::find($id)->update([
+        //     'read_at' => now(),
+        // ]);
+        $notify = DatabaseNotification::find($id);
+        $notify->markAsRead();
+
+        return redirect($notify->data['url']);
     }
 }

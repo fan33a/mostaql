@@ -40,6 +40,9 @@ Route::group(['prefix' => LaravelLocalization::setLocale()], function()
     Route::post('/project/{project:slug}/apply-now', [SiteController::class, 'apply_now_data'])->name('site.apply_now_data');
 
     Route::get('/delete-proposal/{id}', [SiteController::class, 'delete_proposal'])->name('site.delete_proposal');
+    
+    Route::get('/user/profile', [SiteController::class, 'user_profile'])->name('site.user_profile')->middleware('auth');
 
+    Route::get('/notify/{id}', [SiteController::class, 'read_notify'])->name('site.read_notify')->middleware('auth');
 });
 
