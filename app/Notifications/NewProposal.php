@@ -46,13 +46,21 @@ class NewProposal extends Notification
                     ->line('Thank you for using our application!');
     }
 
-    // Database notify
-    public function toDatabase($notifiable) {
-        return [
-            'msg' => $this->msg,
-            'url' => $this->url
-        ];
-    }
+    // // Database notify
+    // public function toDatabase($notifiable) {
+    //     return [
+    //         'msg' => $this->msg,
+    //         'url' => $this->url
+    //     ];
+    // }
+
+    // // Broadcast notify
+    // public function toBroadcast($notifiable) {
+    //     return [
+    //         'msg' => $this->msg,
+    //         'url' => $this->url
+    //     ];
+    // }
     /**
      * Get the array representation of the notification.
      *
@@ -61,7 +69,8 @@ class NewProposal extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            //
+            'msg' => $this->msg,
+            'url' => $this->url
         ];
     }
 }
